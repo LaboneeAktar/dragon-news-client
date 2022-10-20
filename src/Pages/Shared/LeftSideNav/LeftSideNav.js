@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const LeftSideNav = () => {
   const [categories, setCategories] = useState([]);
@@ -15,7 +15,16 @@ const LeftSideNav = () => {
       <div>
         {categories.map((category) => (
           <p key={category.id}>
-            <Link to={`/category/${category.id}`}>{category.name}</Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "text-decoration-none text-danger"
+                  : "text-decoration-none"
+              }
+              to={`/category/${category.id}`}
+            >
+              {category.name}
+            </NavLink>
           </p>
         ))}
       </div>

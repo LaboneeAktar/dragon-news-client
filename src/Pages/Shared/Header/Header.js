@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Button, ButtonGroup, Image } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div>
       <Navbar
@@ -40,6 +52,46 @@ const Header = () => {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+            </Nav>
+            <Nav>
+              <Nav>
+                {user?.uid ? (
+                  <>
+                    <span> {user?.displayName}</span>
+                    <button
+                      onClick={handleLogOut}
+                      className="btn btn-outline-danger"
+                    >
+                      LogOut
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <ButtonGroup className="mb-2">
+                      <Link to="/login">
+                        <Button className="me-2" variant="outline-success">
+                          Login
+                        </Button>
+                      </Link>
+                      <Link to="/register">
+                        {" "}
+                        <Button variant="outline-success">Register</Button>
+                      </Link>
+                    </ButtonGroup>
+                  </>
+                )}
+              </Nav>
+              <Nav.Link eventKey={2} href="#memes">
+                {user?.photoURL ? (
+                  <Image
+                    style={{ height: "30px" }}
+                    roundedCircle
+                    src={user?.photoURL}
+                  ></Image>
+                ) : (
+                  <FaUser></FaUser>
+                )}
+              </Nav.Link>
             </Nav>
 
             <div className="d-lg-none">

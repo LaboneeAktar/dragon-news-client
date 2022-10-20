@@ -12,8 +12,8 @@ const NewsSummaryCart = ({ news }) => {
         <Card.Header className="d-flex justify-content-between align-items-center">
           <div className="d-flex">
             <Image
-              className="me-3"
               roundedCircle
+              className="me-2"
               src={author?.img}
               style={{ height: "60px" }}
             ></Image>
@@ -23,15 +23,15 @@ const NewsSummaryCart = ({ news }) => {
             </div>
           </div>
           <div>
-            <FaRegBookmark className="me-2" />
-            <FaShareAlt />
+            <FaRegBookmark className="me-2"></FaRegBookmark>
+            <FaShareAlt></FaShareAlt>
           </div>
         </Card.Header>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Img variant="top" src={image_url} />
-          <Card.Text>
-            {details.length > 200 ? (
+          <div className="pt-3">
+            {details.length > 250 ? (
               <p>
                 {details.slice(0, 250) + "..."}{" "}
                 <Link to={`/news/${_id}`}>Read More</Link>{" "}
@@ -39,11 +39,11 @@ const NewsSummaryCart = ({ news }) => {
             ) : (
               <p>{details}</p>
             )}
-          </Card.Text>
+          </div>
         </Card.Body>
-        <Card.Footer className="d-flex justify-content-between align-items-center">
+        <Card.Footer className="d-flex justify-content-between">
           <div>
-            <FaStar className="text-warning me-2" />{" "}
+            <FaStar className="text-warning me-2"></FaStar>
             <span>{rating?.number}</span>
           </div>
           <div>
