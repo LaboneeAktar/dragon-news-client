@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+// import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
+  const [error, setError] = useState("");
   const { signIn } = useContext(AuthContext);
+
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const navigate = useNavigate();
 
@@ -21,15 +27,25 @@ const Login = () => {
         console.log(user);
         form.reset();
         alert("SuccessFully Login");
-        navigate("/");
+        setError("");
+        navigate(from, { replace: true });
+
+        // if (user.emailVerified) {
+        //   navigate(from, { replace: true });
+        // } else {
+        //   toast.error("Your Email not Verified");
+        // }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setError(error.message);
+      });
   };
 
   return (
     <div>
       <Form onSubmit={handleLogin}>
-        <h3>Login Please</h3>
+        <h3 className="text-center">Login Please</h3>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -48,6 +64,7 @@ const Login = () => {
             placeholder="Password"
             required
           />
+          <Form.Text className="text-danger">{error}</Form.Text>
         </Form.Group>
 
         <Button variant="primary" type="submit">

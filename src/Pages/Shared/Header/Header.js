@@ -23,7 +23,7 @@ const Header = () => {
     <div>
       <Navbar
         collapseOnSelect
-        className="mb-4"
+        className="mb-5"
         expand="lg"
         bg="light"
         variant="light"
@@ -56,15 +56,15 @@ const Header = () => {
             <Nav>
               <Nav>
                 {user?.uid ? (
-                  <>
-                    <span> {user?.displayName}</span>
+                  <div>
+                    <p className="pt-2"> {user?.displayName}</p>
                     <button
                       onClick={handleLogOut}
                       className="btn btn-outline-danger"
                     >
                       LogOut
                     </button>
-                  </>
+                  </div>
                 ) : (
                   <>
                     <ButtonGroup className="mb-2">

@@ -6,7 +6,7 @@ const Home = () => {
   const allNews = useLoaderData();
   return (
     <div>
-      <h2>Dragon News: {allNews.length}</h2>
+      <h2 className="text-center pb-3">Dragon News: {allNews.length}</h2>
       {allNews.map((news) => (
         <NewsSummaryCart key={news._id} news={news}></NewsSummaryCart>
       ))}
