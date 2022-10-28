@@ -3,10 +3,12 @@ import { Button, Form } from "react-bootstrap";
 // import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import useTitle from "../../hook/useTitle";
 
 const Login = () => {
   const [error, setError] = useState("");
   const { signIn } = useContext(AuthContext);
+  useTitle("Login");
 
   const location = useLocation();
 
